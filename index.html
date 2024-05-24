@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nummern erraten</title>
+<style>
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Errate die Zahl</h1>
+    <p>Der Computer hat eine Nummer zwischen 0 und 100 gewählt. Du hast 10 versuche es zu erraten!</p>
+    <input type="number" id="userGuess" min="0" max="100">
+    <button onclick="playGame()">Rate</button>
+    <p id="result" class="result"></p>
+</div>
+<script>
+let targetNumber = Math.floor(Math.random() * 101);
+let remainingTries = 10;
+function playGame() {
+    const userGuess = Number(document.getElementById("userGuess").value);
+    if (remainingTries > 0) {
+        if (userGuess < 0 || userGuess > 100 || isNaN(userGuess)) {
+            alert("Gib eine gültige Nummer zwischen 0 and 100.");
+            return;
+        } else {
+            remainingTries--;
+            if (userGuess === targetNumber) {
+                document.getElementById("result").innerText = "Glückwunsch!!! Du hast RICHTIG geraten.";
+            } else if (userGuess < targetNumber) {
+                document.getElementById("result").innerText = "Die Nummer ist größer. " + remainingTries + " versuche übrig.";
+            } else {
+                document.getElementById("result").innerText = "Die Nummer ist kleiner. " + remainingTries + " versuche übrig.";
+            }
+            if (remainingTries === 0) {
+                alert("Spiel ist vorbei! Die richtige Nummer ist " + targetNumber + ".");
+            }
+        }
+    } else {
+        alert("Du hast alle Versuche aufgebraucht. Bitte lade die Seite neu.");
+    }
+}
+</script>
+</body>
+</html>
